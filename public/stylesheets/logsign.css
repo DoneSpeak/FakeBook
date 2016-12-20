@@ -1,0 +1,121 @@
+body{
+	background-color:#fff;
+	width:100%;
+	margin:0;
+}
+
+/* header */
+.header{
+	position:fixed;
+	z-index: 100;
+	width:100%;
+	height:3em;
+	padding:0;
+	margin:0;
+	background-color: #3B5998;
+}
+
+.menu-header{
+	width:80%;
+	margin:auto;
+}
+
+.space{
+	height:3em;
+}
+
+/*log*/
+.logo-text{
+	color:#fff;
+}
+
+.logo{
+	line-height:3em;
+	width:5em;
+}
+
+.logo a:hover{
+	color:#fff;
+}
+.logo a:visite{
+	color:#fff;
+}
+.logo a:link{
+	color:#fff;
+}
+
+/* main */
+
+.main{
+	width:100%;
+	height:48em;
+	padding-left:10%;
+	background-color:#F6F7FA;
+}
+
+.logsign-div{
+	width:80%;
+	padding-top:4em;
+	min-width:20em;
+}
+
+.logsign-form{
+	background-color: #fff;
+	box-shadow: 0px 0px 5px #3B5998;
+	padding:1.5em;
+}
+
+.log-form{
+	margin-top:1em;
+}
+
+.sign-form{
+	margin-top:2em;
+}
+
+.login-input{
+	margin-bottom:0.3em;
+	box-shadow: 0px 0px 0px #fff;
+}
+
+.verify img{
+	display:block;
+	height: 34px;
+	float:right;
+}
+
+/*signin*/
+.newuser-text{
+	font-size:1.2em;
+}
+
+.btn-getverify{
+	margin-right:1em;
+}
+
+.signin-contain{
+	display:none;
+}
+
+/* footer */
+.footer{
+	height:5em;
+	width:100%;
+	padding-left:10%;
+	padding-top:1em;
+	background-color:#fff;
+}
+
+
+@media (max-width: 768px) {
+	.main{
+		margin:0;
+		padding:0;
+	}
+	.logsign-div{
+		width:100%;
+		padding-top:4em;
+		padding-left:2em;
+		padding-right:2em;
+	}
+}

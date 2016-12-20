@@ -1,0 +1,31 @@
+<html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="./jquery-2.1.4.min.js"></script>
+	<link href="./test.css" rel="stylesheet"/>
+	<script>
+ 		$(function(){
+ 			var $textarea = $('textarea');
+			$textarea.on('input propertychange keyup change', function (){
+				// alert('点击');
+        // this.$textarea.on('input change', function () {
+          var $span = $('span');
+
+          // alert($textarea.val());
+					$span.text($textarea.val());
+      });
+			
+ 		});
+	</script>
+<style type="text/css">
+	
+</style></head>
+
+<body>
+<div class="wrap">
+	<div class="flex-text-wrap">
+    <pre><span>dddd</span><br></pre>
+    <textarea placeholder="输入文字"></textarea>
+	</div>
+</div>
+</body></html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+
+	<!-- 响应式的大小适应 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+  <link href="/stylesheets/style.css" rel="stylesheet"/>
+  <link href="/stylesheets/logsign.css" rel="stylesheet"/>
+
+	<title>NewBook</title>
+</head>
+<body>
+	<div class="header">
+		<div class="menu-header">
+			<div class="logo">
+				<p><img class="logo-img"><a class="logo-text" href="#">NewBook</a></p>
+			</div>
+		</div>
+	</div>
+	<div class="main">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-5">
+					<div class="logsign-div">
+						<div class="space">
+							<div class="alert-div">
+								<span>用户名已被注册</span>
+							</div>
+						</div>
+						<form class="logsign-form log-form" role="form" enctype="multipart/form-data" method="post" action="/post" value="a">
+							<input type="email" class="form-control login-input" id="email" name="email" placeholder="邮箱" value= "a"/>
+							<input type="password" class="form-control login-input" name="password" id="password" placeholder="密码" value="a"/>
+							<div class="verify">
+								<input type="text" class="form-control login-input" name="verifycode" placeholder="验证码" /><img src="/images/verify.png">
+							</div>
+
+							<input type="button" class="btn btn-default" id="loginBtn" value="登陆">
+						</form>
+						<form class="logsign-form sign-form" role="form">
+							<span class="newuser-text">我是新用户</span>
+							<div class="signin-contain">
+								<div class="divider"></div>
+
+									<input type="text" class="form-control login-input" id="regName" name="username" placeholder="用户名" data-trigger="focus" data-toggle="tooltip" data-placement="right" title="长度为1-10个字符"/>
+									<input type="email" class="form-control  login-input" id="regEmail" name="email" placeholder="邮箱" data-trigger="focus" data-toggle="tooltip" data-placement="right" title="您的常用邮箱"/>
+									<input type="password" class="form-control login-input" id="regPassword" name="password" placeholder="密码" data-trigger="focus" data-toggle="tooltip" data-placement="right" title="长度为6-16个字符"/>
+									<input type="password" class="form-control login-input" name="repassword" placeholder="重复密码" data-trigger="focus" data-toggle="tooltip" data-placement="right" title="确认您的密码"/>
+									<input type="password" class="form-control login-input" name="repassword" placeholder="验证码" />
+									<button type="submit" class="btn btn-getverify btn-default">获取验证码</button><button type="submit" id="registerBtn" class="btn btn-signin btn-default">注册</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="col-md-7">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		公司：冬筑328联盟 | 技术支持：tony、glory
+	</div>
+<!-- 放在底部，加快网页加载 -->
+	<script src="/javascripts/jquery-2.1.4.min.js"></script>
+	<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="/js/script.js"></script>
+
+  <script>
+    $(function () { $("[data-toggle='tooltip']").tooltip(); });
+  </script>
+</body>
+</html>

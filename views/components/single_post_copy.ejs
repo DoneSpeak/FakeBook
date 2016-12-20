@@ -1,0 +1,47 @@
+<!-- 上方为帖子信息 -->
+<div class="single-post" id="<%= post.post_id %>" data-post-pid="<%= post.post_id %>" data-poster-uid="<% user.user_id %>">
+  <div class="post-main">
+    <div class="post-head">
+      <div class="post-info pull-left">
+        <img src="<%= post.avatar %>" class="pull-left img-poster img-big">
+        <a href="#"><span class="poster"><%= post.name %></span></a>
+        <a class='post-link' href='./post.html'><time data-datetime="2016年12月18日 12:00" data-timestamp="22323241345" >15小时</time></a>
+      </div>
+      <div class="dropdown pull-right">
+        <span class="glyphicon glyphicon-chevron-down dropdown-toggle post-edit-delete" id="operate-posted" data-toggle="dropdown"></span>
+        <ul class="dropdown-menu operate-menu" role="menu" aria-labelledby="operate-posted">
+          <li class="post-edit" role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0)">编辑</a></li>
+          <li class="post-delete" role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0)">删除</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <p class="post-content"><%= post.content %><span class="see-more-link">展开</span></p>
+    <% if(post.picture) { %>
+    <div class="post-img">
+      <a href="<%= post.picture %>" class="lightbox_image js-lightbox fs-lightbox-element" data-lightbox-gallery="gallery_fixed" data-lightbox-options='{"fixed":false}' data-title="<a class='poster' href='#'>Mark Zuckerberg</a> <a class='post-link' href='./post.html'><time  data-datetime='2016年12月18日 12:00' data-timestamp='22323241345' >15小时</time></a><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit." title="Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
+        <img src="<%= post.picture %>">
+      </a>
+    </div>
+    <% } %>
+    <div class="post-operation">
+      <a href="#"><span class="glyphicon glyphicon-thumbs-up"></span> 赞 </a>
+      <a class="post-comment" href="javascript:void(0)"><span class="glyphicon glyphicon-comment"></span> 评论</a>
+      <a href="#"><span class="glyphicon glyphicon-share"></span> 分享</a>
+      <span class="pull-right"><a href="#"><%= post.num_of_comment %>条评论</a> <a href="">0次分享</a></span>
+    </div>
+  </div>
+<!-- 下方为所有评论 -->
+  <div class="clear"></div>
+  <div class="all-comments">
+    <!-- 评论 -->
+    <div class="comment-input">
+      <img class="pull-left img-mid" src="<%= user.avatar %>" />
+      <div class="comment-editor-div">
+        <textarea class="comment-editor" placeholder="写评论..."></textarea>
+      </div>
+    </div>
+    <div class="clear comments-anchor"></div>
+
+  </div>   <!-- end of all-comments div -->
+</div>  <!-- end of single-post  -->

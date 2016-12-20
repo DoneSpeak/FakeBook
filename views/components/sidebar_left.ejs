@@ -1,0 +1,107 @@
+<!-- 个人信息 -->
+  <div class="col-xs-2 sidebar sidebar-left">
+    <div class="sidebar-left-fixed">
+      <div class="user-info"><img class="avatar avatar-sidebar" src="<%= user.avatar%>"><a href="#" ><%= user.name %></a></div>
+      <div>
+        <ul class="column-menu massage-menu">
+          <li class="column-item still-active"><img src="./img/friends.png"><span>动态消息</span></li>
+        </ul>
+      </div>
+      <div class="column">
+        <span class="column-name">发现</span>
+        <ul class="column-menu">
+          <li class="column-item" tabindex="1"><a href="#"><img src="./img/friends.png"><span>深大活动</span></a></li>
+          <li class="column-item" tabindex="1"><a href="#"><img src="./img/friends.png"><span>深大约吧</span></a></li>
+        </ul>
+        <hr>
+        <button class="btn btn-primary btn-block" onclick="addAtoBeFriend()">我要加a为好友 </button>
+        <hr>
+
+        <% for(var i = 0; i < friend_requests.length; i++){ %>
+          <div class="friend_request">
+          <blockquote class="single-request confirm<%= friend_requests[i].receiver %>" id="request<%= friend_requests[i].sender %>" style="border-color: #0099FF ">
+            <% if(friend_requests[i].status == "unhandled"){ %>
+            <p class="text-primary"><strong><%= friend_requests[i].sender %></strong></br>的好友请求</p>
+            <button class="btn btn-warning" onclick="acceptFriend('<%= friend_requests[i].sender %>')">接受</button>
+            <button class="btn btn-warning" onclick="refuseFriend('<%= friend_requests[i].sender %>')">拒绝</button>
+            <% }else if(friend_requests[i].status == "refused"){  %>
+              <p class="text-primary "  ><%= friend_requests[i].receiver %></br><strong class="text-danger">拒绝</strong></br>你的好友请求</p>
+              <button class="btn btn-default " onclick="confirmFriend('<%= friend_requests[i].receiver %>')">确认</button>
+            <% }else{ %>
+              <p class="text-primary "><%= friend_requests[i].receiver %></br><strong class="text-success">接受</strong></br>你的好友请求</p>
+              <button class="btn btn-default " onclick="confirmFriend('<%= friend_requests[i].receiver %>')">确认</button>
+            <% } %>
+
+          </blockquote>
+        </div>
+        <% } %>
+        <script>
+          function confirmFriend(user_id){
+            $.ajax({
+              type:"GET",
+              url:'/friend/confirm',
+              data:{
+                user_id : user_id
+              },
+              success:function(res){
+                var selector = '.confirm' + user_id;
+                $(selector).fadeOut();
+              },
+              error: function(){
+                alert('失败，请稍后再试。');
+              }
+            });
+          }
+          function addAtoBeFriend(){
+            $.ajax({
+              type:"GET",
+              url:'/friend',
+              data:{
+                user_id : "0000000015"
+              },
+              success:function(res){
+                alert('添加好友成功');
+              },
+              error: function(){
+                alert('失败，请稍后再试。');
+              }
+            });
+          }
+          function refuseFriend(user_id){
+            $.ajax({
+              type:"delete",
+              url:'/friend/refuse',
+              data:{
+                user_id : user_id
+              },
+              success:function(res){
+                alert('拒绝好友成功');
+                $('#request'+user_id).fadeOut();
+              },
+              error: function(){
+                alert('失败，请稍后再试。');
+              }
+            });
+          }
+          function acceptFriend(user_id){
+            $.ajax({
+              type:"GET",
+              url:'/friend/accept',
+              data:{
+                user_id : user_id
+              },
+              success:function(res){
+                alert('添加好友成功');
+                $('#request'+user_id).fadeOut();
+
+              },
+              error: function(){
+                alert('失败，请稍后再试。');
+              }
+            });
+          }
+
+        </script>
+      </div>
+    </div>
+  </div>

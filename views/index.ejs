@@ -1,0 +1,30 @@
+<%- include('components/header',{user:user}) %>
+	<div class="main">
+    <div class="container">
+
+      <div class="row">
+        <%- include("components/sidebar_left",{user:user, friend_requests:friend_requests}) %>
+        <div class="col-xs-10">
+          <div class="row">
+            <!-- 消息主体 -->
+            <div class="col-xs-8 show-area">
+              <div class="modal-all"></div>
+              <%- include("components/post_editor",{user:user}) %>
+              <!-- 帖子 -->
+              <div class="all-posts" data-last-pid="<%= posts[posts.length - 1].post_id %>">
+              <% for(var i = 0; i < posts.length ; i ++){ %>
+                <%- include("components/single_post.ejs",{user:user,post:posts[i]}) %>
+              <% } %>
+              </div>
+							<div class="see-more-post">加载更多···</div>
+            </div>
+            <!-- 推荐栏目 -->
+            <div class="col-xs-4 sidebar sidebar-right">
+              <%- include("components/sidebar_right.ejs") %>
+            </div><!-- 右侧边栏 end -->
+          </div>
+        </div>
+      </div>
+    </div>
+	</div>
+<%- include("components/footer") %>
