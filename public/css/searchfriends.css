@@ -1,0 +1,41 @@
+.all-search-user{
+	background-color:#fff;
+	padding:10px 0 10px 0;
+}
+
+.search-head-into{
+	border-bottom:1px solid #000;
+	height:25px;
+}
+
+.result-user-item{
+	position: relative;
+	height:100px;
+	margin-top:5px;
+	padding-left:10px;
+	padding-right:10px;
+	border-bottom:1px solid #000;
+}
+
+.result-user-avatar{
+	position: absolute;
+	top: 0;
+	left: 10px;
+	height:100%;
+	max-height: 100px;
+	max-width: 100px;
+}
+
+.result-user-avatar img{
+	width:100%;
+}
+
+.result-user-detail {
+	margin-left: 110px;
+}
+
+.btn-add-friend{
+	position:absolute;
+	right:10px;
+	top:0;
+}
