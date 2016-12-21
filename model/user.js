@@ -21,10 +21,11 @@ User.searchUser = function(me, keyword, callback){
   keyword = "%"+ keyword+ "%";
   pool.getConnection(function(err, connection){
     if(err) throw(err);
-    connection.query(searchSQL,[me, keyword], function(err, rows, fields){
+    var conn = connection.query(searchSQL,[me,me,keyword,me,me,me, keyword], function(err, rows, fields){
       if(err) throw(err);
       console.log(rows);
       callback(rows);
+      console.log(conn.sql);
       connection.release();
     })
   })
@@ -98,6 +99,28 @@ User.prototype.rejectFriend = function(sender, callback){
       connection.release();
     })
   })
+}
+User.prototype.updateInfo = function(callback){
+  var $this = this;
+  var updateSQL = sql.user.updateInfo;
+  pool.getConnection(function(err, connection){
+    if(err) throw(err);
+    connection.query(updateSQL,
+    [
+      $this.name,
+      $this.sex,
+      $this.school,
+      $this.major,
+      $this.intro,
+      $this.user_id
+    ],function(err, result){
+      if(err) throw(err)
+      console.log('更新个人信息吃呢公共:'+ result.affectedRows);
+      callback();
+      connection.release();
+    })
+  }
+
 }
 
 User.prototype.save = function(callback) {

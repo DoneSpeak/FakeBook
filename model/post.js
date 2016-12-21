@@ -22,14 +22,26 @@ function Post(post){
 Post.getSevenPosts = function(userId, callback){
   pool.getConnection(function(err, connection){
     if(err) throw(err);
-    var findAllPostSQL = sql.post.find_7_LastestPost;
-    var query = connection.query(findAllPostSQL, [userId, userId, userId], function(err, posts){
+    var getSevenPostsSQL = sql.post.find_7_LastestPost;
+    var query = connection.query(getSevenPostsSQL, [userId, userId, userId], function(err, posts){
       if(err) throw(err);
       callback(posts);
       connection.release();
     });
   });
 };
+
+Post.getAllMyPost = function(userId, lastPost, callback){
+  pool.getConnection(function(err, connection){
+    if(err) throw(err)
+    var nextFivePosts = sql.post.nextFivePosts;
+    connection.query(nextFivePosts, [userId, lastPost], function(err, posts){
+      if(err) throw(err);
+      callback(posts);
+      connection.release();
+    });
+  })
+}
 
 Post.paging = function(userId, lastPost, callback){
   pool.getConnection(function(err, connection){

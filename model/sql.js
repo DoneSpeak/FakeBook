@@ -8,7 +8,14 @@ exports.user = {
   acceptFriend : "update friend_request set status = 'accepted' where sender = ? and receiver = ? ",
   rejectFriend : "update friend_request set status = 'refused' where sender = ? and receiver = ?",
   confirmFriend : "delete from  friend_request where sender = ? and receiver = ?",
-  searchUser: "select * from user where user_id != ? and name like ? limit 5  "
+  updataInfo: "update user set name = ?, sex = ?, school = ?, major = ?, intro = ? where user_id = ?"
+  searchUser: "select U.*, true as is_friend from user U\
+               where user_id in (select user_a from friend where user_b = ? UNION select user_b from friend where user_a = ?) and name like ? LIMIT 3\
+                UNION\
+                (select U.*, false as is_friend from user U\
+                where user_id \
+                NOT IN (select user_a from friend where user_b = ? UNION select user_b from friend where user_a = ?)\
+               and user_id != ? and name like ? LIMIT 4)"
 }
 
 
@@ -22,6 +29,13 @@ exports.post = {
                         UNION select user_b from friend where user_a = ? ) \
                         and (visibility = \'public\' or visibility = \'friend\')) \
                         or poster = ?) \
+                        and post_id < ? \
+                        order by post_date DESC limit 5',
+
+  findAllPostSQL : 'select name, user_id, avatar, P.* \
+                        from user U, Post P \
+                        where poster = user_id \
+                        and user_id = ?\
                         and post_id < ? \
                         order by post_date DESC limit 5',
 
