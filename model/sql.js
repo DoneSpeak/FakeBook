@@ -8,6 +8,7 @@ exports.user = {
   acceptFriend : "update friend_request set status = 'accepted' where sender = ? and receiver = ? ",
   rejectFriend : "update friend_request set status = 'refused' where sender = ? and receiver = ?",
   confirmFriend : "delete from  friend_request where sender = ? and receiver = ?",
+  searchUser: "select * from user where user_id != ? and name like ? limit 5  "
 }
 
 

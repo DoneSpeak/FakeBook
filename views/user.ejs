@@ -8,8 +8,15 @@
           <div class="row">
             <!-- 消息主体 -->
             <div class="col-xs-8 show-area">
-              <%- include("components/search_friend",{user:user}) %>
-            </div> 
+							<div class="all-search-user">
+								<div class="search-head-into"><img src=""><h1>检索结果</h1></div>
+								<hr>
+								<% for(var i = 0; i < users.length; i++){  %>
+	              <%- include("components/search_friend",{oneuser:users[i]}) %>
+								<% } %>
+							</div>
+
+            </div>
             <!-- 推荐栏目 -->
             <div class="col-xs-4 sidebar sidebar-right">
               <%- include("components/sidebar_right.ejs") %>
