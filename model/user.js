@@ -16,6 +16,19 @@ function User(user) {
   this.sex = user.sex;
 }
 
+User.searchUser = function(me, keyword, callback){
+  var searchSQL = sql.user.searchUser;
+  keyword = "%"+ keyword+ "%";
+  pool.getConnection(function(err, connection){
+    if(err) throw(err);
+    connection.query(searchSQL,[me, keyword], function(err, rows, fields){
+      if(err) throw(err);
+      console.log(rows);
+      callback(rows);
+      connection.release();
+    })
+  })
+}
 User.prototype.makeFriendWith = function(anotherUser, callback){
   var loginUser = this.user_id;
   var makeFriendWithSQL = sql.user.makeFriendWith;

@@ -6,6 +6,7 @@ var like = require('./like')
 var login = require('./login');
 var register = require('./register')
 var friend = require('./friend');
+var searchUser = require('./searchUser');
 
 module.exports = function(app){
 
@@ -17,5 +18,6 @@ module.exports = function(app){
   app.use('/like',like); //喜欢
   app.use('/register', register);
   app.use('/friend', friend);
+  app.use('/searchUser',searchUser);
 
 }

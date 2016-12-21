@@ -7,7 +7,7 @@ exports.user = {
   checkFriendRequest: "select * from friend_request where (receiver = ? and status ='unhandled') or (sender = ? and status != 'unhandled') ",
   acceptFriend : "update friend_request set status = 'accepted' where sender = ? and receiver = ? ",
   rejectFriend : "update friend_request set status = 'refused' where sender = ? and receiver = ?",
-  confirmFriend : "delete from  friend_request where sender = ? and receiver = ?"
+  confirmFriend : "delete from  friend_request where sender = ? and receiver = ?",
 }
 
 

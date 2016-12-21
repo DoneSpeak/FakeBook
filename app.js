@@ -45,7 +45,8 @@ app.use(expressJwt({
 }).unless({path: ["/login","/register"]}));
 app.use(function (err, req, res, next) {
   if (err.name === "UnauthorizedError") {
-    res.redirect('/login');
+    console.log('这个人没有登陆的权限');
+    res.status(401).redirect('/login');
   }
 });
 

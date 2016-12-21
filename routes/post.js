@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
     console.log("in index.js: 展示帖子数目" + posts.length);
     user.checkFriendRequest(function(friend_requests){
       console.log(friend_requests);
-      return res.render('user',{
+      return res.render('index',{
         posts: posts,
         user: req.user,
         friend_requests : friend_requests

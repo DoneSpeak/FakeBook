@@ -4,8 +4,8 @@
 }
 
 .search-head-into{
-	border-bottom:1px solid #000;
-	height:25px;
+	/*border-bottom:1px solid #000;*/
+
 }
 
 .result-user-item{
@@ -14,7 +14,6 @@
 	margin-top:5px;
 	padding-left:10px;
 	padding-right:10px;
-	border-bottom:1px solid #000;
 }
 
 .result-user-avatar{
