@@ -46,7 +46,7 @@ router.get('/more', function(req, res, next){
     console.log('in index.js: 翻页，展示了帖子条数' + posts.length);
     res.status(200).json({
       posts: posts
-    })
+    });
   });
 });
 // 1. 发布新帖子

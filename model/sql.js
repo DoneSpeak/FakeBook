@@ -8,14 +8,21 @@ exports.user = {
   acceptFriend : "update friend_request set status = 'accepted' where sender = ? and receiver = ? ",
   rejectFriend : "update friend_request set status = 'refused' where sender = ? and receiver = ?",
   confirmFriend : "delete from  friend_request where sender = ? and receiver = ?",
-  updataInfo: "update user set name = ?, sex = ?, school = ?, major = ?, intro = ? where user_id = ?"
+  updataInfo: "update user set name = ?, sex = ?, school = ?, major = ?, intro = ? where user_id = ?",
   searchUser: "select U.*, true as is_friend from user U\
                where user_id in (select user_a from friend where user_b = ? UNION select user_b from friend where user_a = ?) and name like ? LIMIT 3\
                 UNION\
                 (select U.*, false as is_friend from user U\
                 where user_id \
                 NOT IN (select user_a from friend where user_b = ? UNION select user_b from friend where user_a = ?)\
-               and user_id != ? and name like ? LIMIT 4)"
+               and user_id != ? and name like ? LIMIT 4)",
+  searchFriendPre: "select user_id,name,avatar from user \
+                where user_id in (select user_a from friend where user_b = ? \
+                UNION select user_b from friend where user_a = ?) and user_id < ? and user_id != ?  LIMIT 11 ",
+  searchFriendNext: "select user_id,name,avatar from user \
+                where user_id in (select user_a from friend where user_b = ? \
+                UNION select user_b from friend where user_a = ?) and user_id > ? and user_id != ?  LIMIT 11 ",
+  getUserById:" select * from user where user_id = ?"
 }
 
 
@@ -31,6 +38,12 @@ exports.post = {
                         or poster = ?) \
                         and post_id < ? \
                         order by post_date DESC limit 5',
+  nextFiveMyPosts: 'select name, user_id, avatar, P.* \
+                        from user U, Post P \
+                        where poster = user_id \
+                        and poster = ? \
+                        and post_id < ? \
+                        limit 10',
 
   findAllPostSQL : 'select name, user_id, avatar, P.* \
                         from user U, Post P \

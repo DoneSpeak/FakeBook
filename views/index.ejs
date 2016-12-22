@@ -11,7 +11,11 @@
               <div class="modal-all"></div>
               <%- include("components/post_editor",{user:user}) %>
               <!-- 帖子 -->
+							<% if(posts.length !== 0){ %>
               <div class="all-posts" data-last-pid="<%= posts[posts.length - 1].post_id %>">
+							<% } else{ %>
+									<div class="all-posts">
+							 <% } %>
               <% for(var i = 0; i < posts.length ; i ++){ %>
                 <%- include("components/single_post.ejs",{user:user,post:posts[i]}) %>
               <% } %>

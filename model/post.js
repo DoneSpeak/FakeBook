@@ -34,7 +34,7 @@ Post.getSevenPosts = function(userId, callback){
 Post.getAllMyPost = function(userId, lastPost, callback){
   pool.getConnection(function(err, connection){
     if(err) throw(err)
-    var nextFivePosts = sql.post.nextFivePosts;
+    var nextFivePosts = sql.post.findAllPostSQL;
     connection.query(nextFivePosts, [userId, lastPost], function(err, posts){
       if(err) throw(err);
       callback(posts);
@@ -42,12 +42,24 @@ Post.getAllMyPost = function(userId, lastPost, callback){
     });
   })
 }
-
+//主页的翻页
 Post.paging = function(userId, lastPost, callback){
   pool.getConnection(function(err, connection){
     if(err) throw(err)
     var nextFivePosts = sql.post.nextFivePosts;
     connection.query(nextFivePosts, [userId, userId, userId, lastPost], function(err, posts){
+      if(err) throw(err);
+      callback(posts);
+      connection.release();
+    });
+  })
+}
+//个人主页的翻页，与上面不同在于，只翻自己的帖子
+Post.myPaging = function(userId, lastPost, callback){
+  pool.getConnection(function(err, connection){
+    if(err) throw(err)
+    var nextFivePosts = sql.post.nextFiveMyPosts;
+    connection.query(nextFivePosts, [userId, lastPost], function(err, posts){
       if(err) throw(err);
       callback(posts);
       connection.release();

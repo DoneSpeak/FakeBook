@@ -14,6 +14,8 @@ function User(user) {
   this.age = user.age;
   this.name = user.name;
   this.sex = user.sex;
+  this.school = user.school;
+  this.major = user.major;
 }
 
 User.searchUser = function(me, keyword, callback){
@@ -27,9 +29,9 @@ User.searchUser = function(me, keyword, callback){
       callback(rows);
       console.log(conn.sql);
       connection.release();
-    })
-  })
-}
+    });
+  });
+};
 User.prototype.makeFriendWith = function(anotherUser, callback){
   var loginUser = this.user_id;
   var makeFriendWithSQL = sql.user.makeFriendWith;
@@ -41,9 +43,9 @@ User.prototype.makeFriendWith = function(anotherUser, callback){
       console.log('in user： 添加好友请求记录成功.');
       callback();
       connection.release();
-    })
-  })
-}
+    });
+  });
+};
 
 User.prototype.checkFriendRequest = function(callback){
   var user_id = this.user_id;
@@ -54,9 +56,9 @@ User.prototype.checkFriendRequest = function(callback){
       if(err) throw(err);
       callback(rows);
       connection.release();
-    })
-  })
-}
+    });
+  });
+};
 
 User.prototype.confirmFriend = function(receiver, callback){
   var confirmFriendSQL = sql.user.confirmFriend;
@@ -68,9 +70,9 @@ User.prototype.confirmFriend = function(receiver, callback){
       console.log('in user.js: 影响条数:' + result.affectedRows)
       callback();
       connection.release();
-    })
-  })
-}
+    });
+  });
+};
 
 User.prototype.acceptFriend = function(sender, callback){
   var acceptFriendSQL = sql.user.acceptFriend;
@@ -83,9 +85,9 @@ User.prototype.acceptFriend = function(sender, callback){
       console.log('in user.js: 影响条数:' + result.affectedRows)
       callback();
       connection.release();
-    })
-  })
-}
+    });
+  });
+};;
 
 User.prototype.rejectFriend = function(sender, callback){
   var rejectFriendSQL = sql.user.rejectFriend;
@@ -97,9 +99,9 @@ User.prototype.rejectFriend = function(sender, callback){
       console.log('in user.js: 影响条数:' + result.affectedRows)
       callback();
       connection.release();
-    })
-  })
-}
+    });
+  });
+};
 User.prototype.updateInfo = function(callback){
   var $this = this;
   var updateSQL = sql.user.updateInfo;
@@ -118,10 +120,30 @@ User.prototype.updateInfo = function(callback){
       console.log('更新个人信息吃呢公共:'+ result.affectedRows);
       callback();
       connection.release();
-    })
+    });
+  });
+
+};
+
+User.prototype.getFriend = function(type, user_id, callback){
+  var myId = this.user_id;
+  var searchSQL ;
+  if(type == "pre"){
+    searchSQL = sql.user.searchFriendPre;
+  }else { // "next" or "first"
+    searchSQL = sql.user.searchFriendNext;
   }
 
-}
+  pool.getConnection(function(err, connection){
+    if(err) throw(err);
+    connection.query(searchSQL,[myId, myId, user_id, myId],function(err, rows, fields){
+      if(err) throw(err);
+      callback(rows);
+      console.log('检索好友成功,共',rows.length,"个好友记录");
+    });
+  });
+};
+
 
 User.prototype.save = function(callback) {
   //要存入数据库的用户文档,事实上不需要那么多属性，不过反正也用不上。这就是js的神奇。
@@ -147,7 +169,31 @@ User.prototype.save = function(callback) {
     });
   });
 };
+User.getUserById = function(userId, callback) {
+  var getUserByIdSQL = sql.user.getUserById;
 
+  pool.getConnection(function(err, connection){
+    if(err) throw(err);
+    connection.query(getUserByIdSQL,[userId],function(err, rows, fields){
+      if(err) throw(err);
+      var newUser = new User({
+        user_id: rows[0].user_id,
+        email: rows[0].email,
+        password: rows[0].password,
+        register_date: rows[0].register_date,
+        avatar: rows[0].avatar,
+        intro: rows[0].intro,
+        age: rows[0].age,
+        name: rows[0].name,
+        sex: rows[0].sex,
+        school: rows[0].school,
+        major: rows[0].major
+      });
+      callback(newUser);
+      connection.release();
+    });
+  });
+}
 //读取用户信息
 User.get = function(email, callback) {
   var findOne = sql.user.findOneUser;
@@ -173,7 +219,6 @@ User.get = function(email, callback) {
         });
         callback(err, "ok", newUser);
         connection.release();
-
       }
     });
   });

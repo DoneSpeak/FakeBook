@@ -16,7 +16,7 @@ router.post("/", function(req, res) {
   var md5 = crypto.createHash('md5');
   password = md5.update( password + salt ).digest('hex');
 
-  User.get(email, function(err,msg, newUser){
+  User.get(email, function(err,msg){
 
     if(msg!="no user"){//用户已存在，请求登陆，而不是注册。
       console.log('register.js: 注册失败，用户已存在。');
@@ -25,7 +25,12 @@ router.post("/", function(req, res) {
       return res.json(JSON.stringify(data));
 
     }
-
+    var newUser = new User({
+      email : email,
+      password: password,
+      name: userName,
+      register_date: salt
+    })
     newUser.save(function(){
       console.log("register.js: 用户注册成功.");
       data = {};
